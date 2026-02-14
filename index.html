@@ -120,15 +120,6 @@
         .amount { color: #d32f2f; font-size: 22px; font-weight: 800; margin-bottom: 10px; border-bottom: 2px solid #eee; }
         .wish { font-size: 14px; line-height: 1.4; font-weight: 500; }
 
-        .music-control {
-            margin-top: 20px;
-            background: rgba(0,0,0,0.5);
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            border: 1px solid var(--gold);
-        }
-
         .disabled { pointer-events: none; }
         #final-msg { margin-top: 25px; font-size: 1.2rem; color: var(--gold); font-weight: bold; min-height: 1.5em; }
     </style>
@@ -143,14 +134,7 @@
 
         <div id="final-msg"></div>
 
-        <div class="music-control" onclick="toggleMusic()">
-            <span id="music-status">🔈 Bật nhạc Tết</span>
-        </div>
     </div>
-
-    <audio id="bg-music" loop>
-        <source src="https://zingmp3.vn/album/Van-Su-Nhu-Y-Single-Truc-Nhan/SCF7CD8E.html" type="audio/mpeg">
-    </audio>
 
     <script>
         const rewards = [
@@ -164,7 +148,6 @@
 
         const grid = document.getElementById('game-grid');
         const finalMsg = document.getElementById('final-msg');
-        const audio = document.getElementById('bg-music');
         const savedResult = localStorage.getItem('tet_2026_result');
 
         // Tạo đèn lồng & tiền rơi
@@ -217,15 +200,6 @@
             });
         }
 
-        function toggleMusic() {
-            if (audio.paused) {
-                audio.play();
-                document.getElementById('music-status').innerText = "🔊 Tạm dừng nhạc";
-            } else {
-                audio.pause();
-                document.getElementById('music-status').innerText = "🔈 Bật nhạc Tết";
-            }
-        }
 
         initGame();
     </script>
