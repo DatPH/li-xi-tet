@@ -2,18 +2,25 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lì Xì Tết 2026</title>
     <style>
-        :root { --gold: #ffd700; --red-deep: #b71c1c; }
+        :root { 
+            --gold: #ffd700; 
+            --red-deep: #b71c1c;
+            /* Stack font thân thiện với Mobile */
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: var(--font-main);
             background: radial-gradient(circle, #d32f2f 0%, #7b0000 100%);
             margin: 0; overflow: hidden; height: 100vh;
             display: flex; flex-direction: column; align-items: center; color: white;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Hiệu ứng hoa đào và vàng rơi */
+        /* Hiệu ứng trang trí */
         .decor {
             position: absolute; top: -50px; pointer-events: none;
             z-index: 1; animation: fall linear infinite;
@@ -22,19 +29,27 @@
             to { transform: translateY(110vh) rotate(360deg); }
         }
 
-        .container { position: relative; z-index: 10; width: 100%; max-width: 600px; text-align: center; padding: 20px; box-sizing: border-box; }
-        h1 { color: var(--gold); text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin-bottom: 5px; }
+        .container { 
+            position: relative; z-index: 10; width: 100%; 
+            max-width: 500px; text-align: center; padding: 20px; box-sizing: border-box; 
+        }
+
+        h1 { 
+            font-size: 1.8rem; color: var(--gold); 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3); margin-bottom: 5px;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
         
         .grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 15px; margin-top: 20px;
+            gap: 12px; margin-top: 25px; width: 100%;
         }
-        @media (max-width: 480px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 400px) { .grid { grid-template-columns: repeat(2, 1fr); } }
 
-        .card { width: 100%; aspect-ratio: 2/3; perspective: 1000px; cursor: pointer; max-width: 150px; }
+        .card { width: 100%; aspect-ratio: 2/3; perspective: 1000px; cursor: pointer; }
         .card-inner {
             position: relative; width: 100%; height: 100%;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             transform-style: preserve-3d;
         }
         .card.flipped .card-inner { transform: rotateY(180deg) scale(1.05); }
@@ -44,40 +59,58 @@
             backface-visibility: hidden; border-radius: 12px;
             border: 2px solid var(--gold); display: flex;
             flex-direction: column; justify-content: center; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        .card-front { background: var(--red-deep); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .card-front span { font-size: 50px; margin-bottom: 10px; }
-        .card-front p { margin: 0; font-weight: bold; color: var(--gold); letter-spacing: 2px; }
+
+        .card-front { background: var(--red-deep); }
+        .card-front span { font-size: 45px; margin-bottom: 8px; }
+        .card-front p { 
+            margin: 0; font-size: 0.9rem; font-weight: 700; 
+            color: var(--gold); letter-spacing: 1.5px; 
+        }
 
         .card-back {
-            background: #fff; color: #333; transform: rotateY(180deg);
-            padding: 10px; text-align: center; box-sizing: border-box;
+            background: #ffffff; color: #2c3e50; transform: rotateY(180deg);
+            padding: 12px; text-align: center; box-sizing: border-box;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
-        .amount { color: #d32f2f; font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; border-bottom: 1px solid #ddd; width: 100%; }
-        .wish { font-size: 0.8rem; line-height: 1.4; }
+
+        .amount { 
+            color: #d32f2f; font-size: 1.1rem; font-weight: 800; 
+            padding-bottom: 8px; border-bottom: 1.5px solid #f0f0f0; 
+            width: 100%; margin-top: 10px;
+        }
+
+        .wish { 
+            font-size: 0.85rem; line-height: 1.5; font-weight: 500;
+            margin-bottom: 15px; flex-grow: 1; display: flex;
+            align-items: center; justify-content: center;
+        }
 
         .disabled { pointer-events: none; }
-        #final-msg { margin-top: 20px; font-weight: bold; color: var(--gold); min-height: 1.5em; }
+        #final-msg { 
+            margin-top: 25px; font-weight: 600; color: var(--gold); 
+            min-height: 1.5em; font-size: 1rem;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>🧧 LÌ XÌ TẾT 2026 🧧</h1>
-        <p>Bấm chọn 1 bao duy nhất để nhận lộc!</p>
+        <h1>🧧 Lì Xì May Mắn 🧧</h1>
+        <p style="font-size: 0.9rem; opacity: 0.9;">Chọn 1 bao lì xì để nhận lộc đầu năm!</p>
         <div class="grid" id="game-grid"></div>
         <div id="final-msg"></div>
     </div>
 
     <script>
-        // Tách biệt Mệnh giá và Hình tượng
         const data = [
-            { amount: "20.000đ", wish: "Năm mới công việc hanh thông, deadline tự tan, không lo lay-off." },
-            { amount: "79.000đ", wish: "Vía Thần Tài gõ cửa! Chúc bạn năm mới tiền bạc rủng rỉnh." },
+            { amount: "20.000đ", wish: "Năm mới hanh thông, deadline tự tan, không lo lay-off." },
+            { amount: "79.000đ", wish: "Thần Tài gõ cửa! Năm mới tiền bạc rủng rỉnh, lộc lá đầy tay." },
             { amount: "100.000đ", wish: "Vạn sự như ý! Chúc bạn bùng nổ, đánh đâu thắng đó." },
             { amount: "179.000đ", wish: "Đại cát đại lợi! Tài lộc hưng thịnh, sự nghiệp thăng hoa." },
             { amount: "200.000đ", wish: "Sức khỏe là vàng! Tâm an thân lạc, vạn sự hanh thông." },
-            { amount: "279.000đ", wish: "Trùm cuối may mắn! Tiền vào tỉ tỉ, phú quý vinh hoa." }
+            { amount: "279.000đ", wish: "Trùm cuối tài lộc! Tiền vào tỉ tỉ, phú quý vinh hoa rực rỡ." }
         ];
         const icons = ["🐱", "🐯", "🐉", "🦁", "🐢", "🦄"];
 
@@ -91,13 +124,13 @@
 
         function createDecorations() {
             const types = ['🌸', '✨', '🪙', '🧧'];
-            for(let i=0; i<30; i++) {
+            for(let i=0; i<25; i++) {
                 let item = document.createElement('div');
                 item.className = 'decor';
                 item.style.left = Math.random() * 100 + 'vw';
-                item.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                item.style.animationDuration = (Math.random() * 2 + 3) + 's';
                 item.style.animationDelay = Math.random() * 5 + 's';
-                item.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                item.style.fontSize = (Math.random() * 10 + 15) + 'px';
                 item.innerText = types[Math.floor(Math.random() * types.length)];
                 document.body.appendChild(item);
             }
@@ -108,7 +141,6 @@
             const grid = document.getElementById('game-grid');
             const savedResult = localStorage.getItem('tet_2026_result');
             
-            // Trộn độc lập cả 2 mảng để icon không bị dính với mệnh giá
             const shuffledData = shuffle([...data]);
             const shuffledIcons = shuffle([...icons]);
 
