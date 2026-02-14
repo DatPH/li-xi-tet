@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lì Xì Tết 2026</title>
+    <style>
+        :root {
+            --red: #d32f2f;
+            --gold: #ffd700;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8e0e00, #1f1c18);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 { color: var(--gold); margin-bottom: 10px; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 500px;
+            margin-top: 30px;
+        }
+        @media (max-width: 480px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        
+        .card {
+            width: 120px;
+            height: 180px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .card.flipped .card-inner { transform: rotateY(180deg); }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--gold);
+        }
+        .card-front {
+            background: var(--red);
+            font-size: 50px;
+        }
+        .card-back {
+            background: white;
+            color: #333;
+            transform: rotateY(180deg);
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .amount { color: var(--red); font-size: 20px; margin-bottom: 5px; }
+        #message { margin-top: 20px; font-style: italic; color: var(--gold); height: 20px; }
+        .disabled { pointer-events: none; opacity: 0.7; }
+    </style>
+</head>
+<body>
+
+    <h1>🏮 Chúc Mừng Năm Mới 2026 🏮</h1>
+    <p>Chọn 1 bao lì xì để nhận lộc đầu năm nhé!</p>
+    
+    <div class="grid" id="game-grid">
+        </div>
+
+    <p id="message"></p>
+
+    <script>
+        const rewards = [
+            { amount: "20.000đ", wish: "Chúc bạn công việc hanh thông, deadline tự tan, cả năm không lo lay-off." },
+            { amount: "79.000đ", wish: "Vía Thần Tài gõ cửa! Chúc bạn năm mới tiền bạc rủng rỉnh, lộc lá đầy tay." },
+            { amount: "100.000đ", wish: "Vạn sự như ý! Chúc bạn năm mới bùng nổ, đánh đâu thắng đó, vạn dặm bình an." },
+            { amount: "179.000đ", wish: "Đại cát đại lợi! Chúc bạn năm mới tài lộc hưng thịnh, sự nghiệp thăng hoa." },
+            { amount: "200.000đ", wish: "Sức khỏe là vàng! Chúc bạn dẻo dai, tâm an thân lạc, luôn tràn đầy năng lượng." },
+            { amount: "279.000đ", wish: "Trùm cuối tài lộc! Chúc bạn giàu sang phú quý, tiền vào tỉ tỉ, vạn sự hanh thông." }
+        ];
+
+        const grid = document.getElementById('game-grid');
+        const msgDisplay = document.getElementById('message');
+        const savedResult = localStorage.getItem('tet_2026_result');
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function initGame() {
+            const currentRewards = shuffle([...rewards]);
+            
+            currentRewards.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front">🧧</div>
+                        <div class="card-back">
+                            <div class="amount">${item.amount}</div>
+                            <div>${item.wish}</div>
+                        </div>
+                    </div>
+                `;
+
+                if (savedResult) {
+                    const result = JSON.parse(savedResult);
+                    if (item.amount === result.amount) {
+                        card.classList.add('flipped');
+                    }
+                    card.classList.add('disabled');
+                    msgDisplay.innerText = "Bạn đã nhận lộc rồi, chúc mừng năm mới!";
+                } else {
+                    card.onclick = () => flipCard(card, item);
+                }
+
+                grid.appendChild(card);
+            });
+        }
+
+        function flipCard(card, item) {
+            card.classList.add('flipped');
+            localStorage.setItem('tet_2026_result', JSON.stringify(item));
+            
+            // Disable all other cards
+            document.querySelectorAll('.card').forEach(c => c.classList.add('disabled'));
+            msgDisplay.innerText = "Chụp màn hình gửi cho mình để nhận lộc nhé!";
+        }
+
+        initGame();
+    </script>
+</body>
+</html>
